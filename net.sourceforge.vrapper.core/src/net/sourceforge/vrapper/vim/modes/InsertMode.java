@@ -56,6 +56,7 @@ import net.sourceforge.vrapper.vim.commands.motions.Motion;
 import net.sourceforge.vrapper.vim.commands.motions.MoveDown;
 import net.sourceforge.vrapper.vim.commands.motions.MoveLeft;
 import net.sourceforge.vrapper.vim.commands.motions.MoveLeftAcrossLines;
+import net.sourceforge.vrapper.vim.commands.motions.MoveRight;
 import net.sourceforge.vrapper.vim.commands.motions.MoveRightAcrossLines;
 import net.sourceforge.vrapper.vim.commands.motions.MoveUp;
 import net.sourceforge.vrapper.vim.commands.motions.MoveWordLeft;
@@ -223,8 +224,12 @@ public class InsertMode extends AbstractMode {
     private void repeatInsert() {
         if (count > 1) {
             try {
+//            	MotionCommand moveRight = new MotionCommand(MoveRight.INSTANCE);
+//            	moveRight.execute(editorAdaptor, 1);
                 repeat(count - 1, editorAdaptor.getRegisterManager().getLastInsertion())
                     .execute(editorAdaptor);
+//            	MotionCommand moveLeft = new MotionCommand(MoveLeft.INSTANCE);
+//            	moveLeft.execute(editorAdaptor, 1);
             } catch (final CommandExecutionException e) {
                 editorAdaptor.getUserInterfaceService().setErrorMessage(
                         e.getMessage());
@@ -294,6 +299,7 @@ public class InsertMode extends AbstractMode {
         if(count > 1) {
             //insert mode with count
             paste = PasteAfterCommand.CURSOR_ON_TEXT;
+//            paste = PasteBeforeCommand.CURSOR_AFTER_TEXT;
         }
         else {
             //'.' command after insert
